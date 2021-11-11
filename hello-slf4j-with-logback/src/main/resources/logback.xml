@@ -6,29 +6,29 @@
 
     <contextListener class="me.ely.logger.MyLogContextListener" />
 
-    <property name="APP_NAME" value="elastic-index-manager" />
-    <property name="LOG_FILE" value="${LOG_PATH}/${APP_NAME}.log"/>
-    <property name="LOG_FILE_WARN" value="${LOG_PATH}/${APP_NAME}_warn.log"/>
-    <property name="LOG_FILE_ERROR" value="${LOG_PATH}/${APP_NAME}_error.log"/>
+    <property name="APP_NAME" value="hello-slf4j-with-logback" />
+    <property name="LOG_FILE_ALL" value="${LOG_PATH}/${APP_NAME}/${APP_NAME}_all.log"/>
+    <property name="LOG_FILE_WARN" value="${LOG_PATH}/${APP_NAME}/${APP_NAME}_warn.log"/>
+    <property name="LOG_FILE_ERROR" value="${LOG_PATH}/${APP_NAME}/${APP_NAME}_error.log"/>
 
-<!--    <property name="FILE_LOG_PATTERN" value="${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } %X{traceId:-00000000000000000000000000000000} -&#45;&#45; [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>-->
-    <property name="FILE_LOG_PATTERN" value="[%date{yyyy-MM-dd HH:mm:ss}] [%-5level] [%thread] [%logger:%line]-- %msg%n"/>
+<!--    <property name="LOG_PATTERN" value="${LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } %X{traceId:-00000000000000000000000000000000} -&#45;&#45; [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>-->
+    <property name="LOG_PATTERN" value="[%date{yyyy-MM-dd HH:mm:ss}] [%-5level] [%thread] [%logger:%line]-- %msg%n"/>
 
     <!--  appender 是用来定义日志如何输出  -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5level] %logger{36} [%file:%line] - %msg%n</pattern>
+            <pattern>${LOG_PATTERN}</pattern>
         </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="FILE_ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder>
-            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <pattern>${LOG_PATTERN}</pattern>
         </encoder>
-        <file>${LOG_FILE}</file>
+        <file>${LOG_FILE_ALL}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <cleanHistoryOnStart>${LOG_FILE_CLEAN_HISTORY_ON_START:-false}</cleanHistoryOnStart>
-            <fileNamePattern>${ROLLING_FILE_NAME_PATTERN:-${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz}</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_ALL}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
             <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
             <maxHistory>${LOG_FILE_MAX_HISTORY:-7}</maxHistory>
             <totalSizeCap>${LOG_FILE_TOTAL_SIZE_CAP:-0}</totalSizeCap>
@@ -37,7 +37,7 @@
 
     <appender name="FILE_WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder>
-            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <pattern>${LOG_PATTERN}</pattern>
         </encoder>
         <file>${LOG_FILE_WARN}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -56,7 +56,7 @@
 
     <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder>
-            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <pattern>${LOG_PATTERN}</pattern>
         </encoder>
         <file>${LOG_FILE_ERROR}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -89,7 +89,7 @@
     <!--  root 是设置全局日志级别  -->
     <root level="debug">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
+        <appender-ref ref="FILE_ALL"/>
         <appender-ref ref="FILE_WARN"/>
         <appender-ref ref="FILE_ERROR"/>
     </root>

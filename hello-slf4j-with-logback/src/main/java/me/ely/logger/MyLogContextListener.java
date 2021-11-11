@@ -41,9 +41,9 @@ public class MyLogContextListener extends ContextAwareBase implements LoggerCont
 
     @Override
     public void start() {
-        // String logPath = System.getProperty("user.dir") + "/logs/";
+        // String logPath = "/Users/Ely/Projects/IdeaProjects/Ely/hello-logger/logs";
+        String logPath = System.getProperty("user.dir") + "/logs";
         // System.setProperty(LOG_PAHT_KEY, logPath);
-        String logPath = "/Users/Ely/Projects/IdeaProjects/Ely/hello-logger/hello-slf4j-with-logback";
         getContext().putProperty(LOG_PAHT_KEY, logPath);
     }
 
