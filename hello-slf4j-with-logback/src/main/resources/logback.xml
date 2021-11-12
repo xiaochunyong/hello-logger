@@ -4,7 +4,10 @@
 -->
 <configuration scan="true" scanPeriod="5 seconds">
 
-    <contextListener class="me.ely.logger.MyLogContextListener" />
+    <!--  动态路径的2种方式  -->
+<!--    <contextListener class="me.ely.logger.MyLogContextListener" />-->
+<!--    <property name="LOG_PATH" value="${user.home}/logs"/>-->
+    <property name="LOG_PATH" value="${user.dir}/logs"/>
 
     <property name="APP_NAME" value="hello-slf4j-with-logback" />
     <property name="LOG_FILE_ALL" value="${LOG_PATH}/${APP_NAME}/${APP_NAME}_all.log"/>
